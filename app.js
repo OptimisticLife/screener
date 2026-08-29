@@ -238,15 +238,10 @@ function updateRefreshUI(running, progress, currentStock = "", completed = 0, to
 // ── Load ──────────────────────────────────────────────────────
 async function loadData() {
   try {
-    // Try fetching from API endpoint first, fallback to static json file
-    let res;
-    try {
-      res = await fetch("/api/data");
-    } catch {
-      res = await fetch("data/screener_data.json?_=" + Date.now());
-    }
+    // Fetch static dataset directly for universal static & serverless compatibility
+    let res = await fetch("data/screener_data.json?_=" + Date.now());
     if (!res.ok) {
-      res = await fetch("data/screener_data.json?_=" + Date.now());
+      res = await fetch("/api/data");
     }
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
