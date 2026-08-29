@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nifty 500 downtrend stock screener for weekly and monthly swing trading." />
+  <title>Nifty 500 Screener</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FAF6F0'/%3E%3Cpath d='M7 10 L14 18 L20 14 L25 22' fill='none' stroke='%23C88278' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='22' r='2.5' fill='%23C88278'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Clean Fixed Header Container -->
+  <header class="header">
+    <div class="header-inner">
+      
+      <!-- Filter Chips in Header -->
+      <nav class="tab-nav">
+        <button class="tab-btn active" id="tab-all" data-tab="all">
+          <i data-lucide="grid" class="tab-icon"></i>
+          <span>All Stocks</span>
+          <span class="tab-count" id="tab-all-count">—</span>
+        </button>
+        <button class="tab-btn" id="tab-top25" data-tab="top25" title="Strict Top 25 High-Conviction Downtrend Stocks">
+          <i data-lucide="flame" class="tab-icon"></i>
+          <span>Top 25 Extreme</span>
+          <span class="tab-count" id="tab-top25-count">25</span>
+        </button>
+        <button class="tab-btn" id="tab-downtrend" data-tab="downtrend">
+          <i data-lucide="arrow-down-right" class="tab-icon"></i>
+          <span>Downtrend</span>
+          <span class="tab-count" id="tab-downtrend-count">—</span>
+        </button>
+        <button class="tab-btn" id="tab-bullish" data-tab="bullish">
+          <i data-lucide="arrow-up-right" class="tab-icon"></i>
+          <span>Bullish</span>
+          <span class="tab-count" id="tab-bullish-count">—</span>
+        </button>
+        <button class="tab-btn" id="tab-bookmarks" data-tab="bookmarks">
+          <i data-lucide="bookmark" class="tab-icon"></i>
+          <span>Bookmarks</span>
+          <span class="tab-count" id="tab-bookmark-count">0</span>
+        </button>
+      </nav>
+
+      <!-- Header Right: Refresh Action Icon, Progress Bar, Last Updated IST Info & Theme Switcher -->
+      <div class="header-right" style="display:flex; align-items:center; gap:12px;">
+        
+        <!-- Minimal Progress Bar container (shown during active refresh) -->
+        <div id="refresh-progress-container" class="refresh-progress-wrap" style="display:none;">
+          <div class="progress-info-row">
+            <span id="progress-count-text">0 / 500 (0%)</span>
+            <span id="progress-stock-text">Starting...</span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="refresh-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Last Updated IST Badge -->
+        <div id="last-updated-badge" class="last-updated-badge" title="Data last updated timestamp in IST">
+          <i data-lucide="clock" style="width:13px;height:13px;stroke-width:2;color:var(--text-muted);"></i>
+          <span id="last-updated-text">Updated: <span class="highlight-time" style="color:var(--text-primary);font-weight:600;margin-left:4px;">29 Aug, 01:38 PM IST</span></span>
+        </div>
+
+        <!-- Sleek Icon Refresh Action -->
+        <button class="btn btn-ghost" id="btn-refresh" title="Sync / Refresh Stock Data (Runs auto daily at 9:00 AM IST)" style="padding:6px 10px; font-size:0.9rem;">
+          <span id="btn-refresh-icon" style="display:inline-flex;align-items:center;"><i data-lucide="refresh-cw" style="width:15px;height:15px;stroke-width:2;"></i></span>
+        </button>
+
+        <!-- Theme Switcher CTA -->
+        <button class="btn btn-ghost" id="theme-toggle-btn" title="Toggle Theme (Dark / Light)" style="padding:6px 10px; font-size:0.9rem;">
+          <span id="theme-toggle-icon" style="display:inline-flex;align-items:center;"><i data-lucide="moon" style="width:15px;height:15px;stroke-width:2;"></i></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- Table card — flex column, fills rest of height -->
+      <div class="table-card">
+        <div class="table-toolbar" style="flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="toolbar-title" id="toolbar-title">All Stocks</span>
+            <span class="toolbar-count" id="toolbar-count">—</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <select class="toolbar-select" id="sector-filter">
+              <option value="all">All Sectors</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ONLY this div scrolls -->
+        <div class="table-scroll-area" id="table-area">
+          <table class="screener-table">
+            <thead>
+              <tr id="table-header-row">
+                <th style="width: 52px; min-width: 52px; text-align: center; padding: 4px; position: sticky; top: 0; z-index: 3; overflow: visible;">
+                  <div class="header-search-container">
+                    <input type="text" class="header-search" id="search-box" placeholder="" title="Search symbol or name…" />
+                  </div>
+                </th>
+                <th class="sortable" data-sort="symbol" style="position: sticky; top: 0; z-index: 2;">
+                  Symbol
+                  <div id="symbol-count" style="font-size:0.65rem;color:var(--text-muted);font-weight:400;margin-top:2px;">—</div>
+                </th>
+                <th class="sortable" data-sort="price" style="position: sticky; top: 0; z-index: 2;">Price</th>
+                <th class="sortable" data-sort="chg1M" style="position: sticky; top: 0; z-index: 2;">Chg % (1M)</th>
+                <th class="sortable" data-sort="chgDaily" style="position: sticky; top: 0; z-index: 2;">Chg %</th>
+                <th class="sortable" data-sort="vol" style="position: sticky; top: 0; z-index: 2;">Vol</th>
+                <th class="sortable" data-sort="relVol" style="position: sticky; top: 0; z-index: 2;">Rel Vol</th>
+                <th class="sortable" data-sort="mktCap" style="position: sticky; top: 0; z-index: 2;">Mkt Cap</th>
+                <th class="sortable" data-sort="ret5D" style="position: sticky; top: 0; z-index: 2;">5D</th>
+                <th class="sortable" data-sort="ret10D" style="position: sticky; top: 0; z-index: 2;">10D</th>
+                <th class="sortable" data-sort="ret15D" style="position: sticky; top: 0; z-index: 2;">15D</th>
+                <th class="sortable" data-sort="ret20D" style="position: sticky; top: 0; z-index: 2;">20D</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr>
+                <td colspan="13" style="text-align:center;padding:40px;">
+                  <div class="empty">
+                    <div class="spinner"></div>
+                    <div class="empty-title">Loading…</div>
+                    <div class="empty-body">Reading screener database</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination bar is back -->
+        <div class="pagination" id="pagination-bar" style="display:none;">
+          <div class="pagination-info" id="pagination-info"></div>
+          <div class="pagination-controls" id="pagination-controls"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="app.js"></script>
+</body>
+</html>

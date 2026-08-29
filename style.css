@@ -1,0 +1,1603 @@
+/* ============================================================
+   Apple Human Interface Guidelines — Dark & Light Theme System
+   Centralized Semantic Design Tokens Architecture
+   ============================================================ */
+
+:root {
+  /* ── Apple Official Typography System (SF Pro Text, Display, Mono) ── */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Apple Semantic Typography Scale ── */
+  --text-large-title: 34px;
+  --text-title-1:     28px;
+  --text-title-2:     22px;
+  --text-title-3:     20px;
+  --text-headline:    17px;
+  --text-body:        15px;
+  --text-callout:     14px;
+  --text-subhead:     13px;
+  --text-footnote:    12px;
+  --text-caption-1:   11px;
+  --text-caption-2:   10px;
+
+  /* ── Apple Dark Mode Semantic Surface Hierarchy (HIG Precise Palette) ── */
+  --bg:                   #0D0D0E;      /* Level 0: Apple macOS Dark Graphite Canvas */
+  --bg-soft:              #141416;      /* Level 1: Secondary Dark Content Canvas */
+  --secondary-bg:         #1C1C1E;      /* Level 2: Apple Grouped Surface (Nav & Toolbar) */
+  --surface:              #1C1C1E;      /* Level 2: Primary Card & Header Surface */
+  --elevated-surface:     #2C2C2E;      /* Level 3: Floating Overlay / Modal Surface */
+  --surface-warm:         #1C1C1E;
+  --overlay:              rgba(0, 0, 0, 0.70); /* Level 4: Backdrop Blur Overlay */
+
+  /* ── Apple Primary Accent System ── */
+  --accent:       #0A84FF;              /* Apple Dark Mode System Blue */
+  --accent-light: rgba(10, 132, 255, 0.15);
+  --accent-dark:  #0066CC;
+
+  /* ── Apple 4-Tier Typography Opacity Hierarchy (Section 5) ── */
+  --text-primary:   #FFFFFF;                  /* 100% Primary Label (High Contrast) */
+  --text-secondary: rgba(235, 235, 245, 0.60); /* 60% Secondary Label (Muted) */
+  --text-tertiary:  rgba(235, 235, 245, 0.30); /* 30% Tertiary Label (Subdued) */
+  --text-quaternary:rgba(235, 235, 245, 0.18); /* 18% Quaternary Label (Watermark) */
+  --text-muted:     rgba(235, 235, 245, 0.45);
+
+  /* ── Apple Precise Hairline Separators & Borders (Section 6 & 7) ── */
+  --separator:        rgba(255, 255, 255, 0.12); /* Subtle Translucent Hairline */
+  --opaque-separator: #38383A;                  /* Opaque Structural Divider */
+  --border:           rgba(255, 255, 255, 0.12);
+  --border-soft:      rgba(255, 255, 255, 0.06);
+
+  /* ── Apple Semantic System Colors (Section 2) ── */
+  --ind-red:          #FF453A;          /* System Red */
+  --ind-red-bg:       rgba(255, 69, 58, 0.15);
+  --ind-red-border:   rgba(255, 69, 58, 0.30);
+
+  --ind-orange:       #FF9F0A;          /* System Orange */
+  --ind-orange-bg:    rgba(255, 159, 10, 0.15);
+  --ind-orange-border:rgba(255, 159, 10, 0.30);
+
+  --ind-green:        #30D158;          /* System Green */
+  --ind-green-bg:     rgba(48, 209, 88, 0.15);
+  --ind-green-border: rgba(48, 209, 88, 0.30);
+
+  --ind-blue:         #0A84FF;          /* System Blue */
+  --ind-blue-bg:      rgba(10, 132, 255, 0.15);
+  --ind-blue-border:  rgba(10, 132, 255, 0.30);
+
+  --ind-purple:       #BF5AF2;          /* System Purple */
+  --ind-purple-bg:    rgba(191, 90, 242, 0.15);
+  --ind-purple-border:rgba(191, 90, 242, 0.30);
+
+  --ind-gray:         #98989D;          /* System Gray */
+  --ind-gray-bg:      rgba(152, 152, 157, 0.15);
+  --ind-gray-border:  rgba(152, 152, 157, 0.30);
+
+  /* ── Apple Restrained Corner Radius System (Section 7) ── */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+  --radius-pill:9999px;
+
+  /* ── Apple Subtle Dark Elevation Shadows (Section 13) ── */
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+
+  --transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Apple Light Theme Override ─────────────────────────── */
+html[data-theme="light"] {
+  --bg:                   #F2F2F7;      /* Official Apple iOS/macOS System Grouped Gray */
+  --bg-soft:              #E5E5EA;      /* Apple Secondary Grouped Canvas */
+  --secondary-bg:         #FFFFFF;
+  --surface:              #FFFFFF;      /* Apple Pure White Raised Card Surface */
+  --elevated-surface:     #FFFFFF;
+  --surface-warm:         #F2F2F7;
+  --overlay:              rgba(0, 0, 0, 0.40);
+
+  --accent:       #007AFF;              /* Apple System Blue Light */
+  --accent-light: rgba(0, 122, 255, 0.10);
+  --accent-dark:  #0056B3;
+
+  --text-primary:   #000000;            /* 100% Primary Label */
+  --text-secondary: #3C3C43;            /* 60% Secondary Label */
+  --text-tertiary:  rgba(60, 60, 67, 0.30);  /* 30% Tertiary Label */
+  --text-quaternary:rgba(60, 60, 67, 0.18);  /* 18% Quaternary Label */
+  --text-muted:     #8E8E93;
+
+  --separator:        rgba(60, 60, 67, 0.12);
+  --opaque-separator: #C6C6C8;
+  --border:           rgba(60, 60, 67, 0.12);
+  --border-soft:      rgba(60, 60, 67, 0.06);
+
+  --ind-red:          #FF3B30;
+  --ind-red-bg:       #FFEFED;
+  --ind-red-border:   #FFB4AE;
+
+  --ind-orange:       #FF9500;
+  --ind-orange-bg:    #FFF8ED;
+  --ind-orange-border:#FFD699;
+
+  --ind-green:        #34C759;
+  --ind-green-bg:     #EDFBF0;
+  --ind-green-border: #9EEAAB;
+
+  --ind-blue:         #007AFF;
+  --ind-blue-bg:      #EDF5FF;
+  --ind-blue-border:  #99C7FF;
+
+  --ind-purple:       #AF52DE;
+  --ind-purple-bg:    #F7EDFC;
+  --ind-purple-border:#E0B3F3;
+
+  --ind-gray:         #8E8E93;
+  --ind-gray-bg:      #F2F2F7;
+  --ind-gray-border:  #D1D1D6;
+
+  --shadow-sm:   0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.06);
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+/* ── Apple Global Reset ────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;          /* body NEVER scrolls */
+  display: flex;
+  flex-direction: column;
+  line-height: 1.47059;      /* Apple exact standard typography ratio */
+  letter-spacing: -0.022em;  /* Apple SF Pro default optical tracking */
+  font-size: 15px;
+  overscroll-behavior: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  letter-spacing: 0.03em;
+}
+
+html { height: 100%; overflow: hidden; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Header ────────────────────────────────────────────────── */
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--separator);
+  padding: 0 24px;
+  flex-shrink: 0;            /* never shrink */
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.brand-tag {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+  letter-spacing: 0.2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Freshness pill & Last Updated IST Badge */
+.last-updated-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.last-updated-badge .highlight-time {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+/* Minimal Progress Bar */
+.refresh-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 170px;
+}
+
+.progress-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.progress-info-row #progress-stock-text {
+  color: var(--accent);
+  font-weight: 600;
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 3px;
+  background: var(--border-soft);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.freshness {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.freshness.fresh     { color: var(--ind-green); }
+.freshness.stale     { color: var(--ind-orange); }
+.freshness.very-stale{ color: var(--ind-red); }
+
+.freshness-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-accent {
+  background: transparent;
+  color: var(--accent);
+  border: none;
+  box-shadow: none;
+  font-weight: 600;
+}
+.btn-accent:hover { color: var(--accent-dark); }
+
+.btn-soft {
+  background: transparent;
+  color: var(--accent-dark);
+  border: none;
+}
+.btn-soft:hover { color: var(--accent); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+}
+.btn-ghost:hover { color: var(--text-primary); }
+
+/* ── Main ──────────────────────────────────────────────────── */
+.main {
+  flex: 1;                   /* fills remaining viewport height */
+  min-height: 0;             /* allows flex child to shrink */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px 16px;
+}
+
+.main-inner {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Page hero ─────────────────────────────────────────────── */
+.page-hero {
+  margin-bottom: 24px;
+}
+
+.page-hero h1 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.page-hero p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+}
+
+/* ── Tab nav (Design #2: Aligned bottom border with header container) ───────── */
+.tab-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: transparent;
+  padding: 0;
+  width: auto;
+  position: relative;
+  height: 56px;
+}
+
+.tab-btn {
+  height: 56px;
+  padding: 0 6px;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  letter-spacing: -0.011em;
+  transition: color var(--transition), opacity var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  outline: none;
+  opacity: 0.85;
+}
+
+/* ── macOS SF Symbols Icon System (HIG Section 9) ────────────── */
+svg, .tab-icon, [data-lucide] {
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  vector-effect: non-scaling-stroke;
+}
+
+.tab-icon {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.2px;
+  transition: transform var(--transition);
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  opacity: 1;
+}
+
+.tab-btn:hover .tab-icon {
+  transform: translateY(-1px);
+}
+
+.tab-btn.active {
+  color: var(--text-primary);
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* Apple Active indicator: clean System Blue underline */
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px 1px 0 0;
+}
+
+.tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0 6px;
+  transition: background var(--transition), color var(--transition);
+}
+
+.tab-btn.active .tab-count {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+.tab-btn:not(.active) .tab-count {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+}
+
+/* ── Table card ────────────────────────────────────────────── */
+.table-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;                   /* takes remaining height */
+  min-height: 0;
+}
+
+/* Scrollable table wrapper — ONLY this scrolls */
+.table-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  min-height: 0;
+  position: relative;
+  overscroll-behavior-y: contain; /* contain scrolling inside table */
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-soft);
+  gap: 12px;
+  flex-wrap: wrap;
+  background: transparent;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+}
+
+.screener-table td.sym-cell {
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.stock-name {
+  font-size: 0.67rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 1px;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+}
+
+.table-search {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 5px 10px 5px 26px;
+  width: 185px;
+  outline: none;
+  transition: var(--transition);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='%23b0a09a' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 4px center;
+}
+
+.table-search:focus {
+  border-color: var(--accent);
+  width: 220px;
+}
+
+/* ── Table Header Search Box ────────────────────────── */
+.header-search-container {
+  position: relative;
+  width: 26px;
+  height: 24px;
+  margin: 0 auto;
+  z-index: 99; /* Force higher stacking context over sticky headers */
+}
+
+.header-search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 4px 6px 4px 22px;
+  width: 26px;
+  height: 24px;
+  outline: none;
+  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s;
+  box-sizing: border-box;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='%23b0a09a' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 7px center;
+  cursor: pointer;
+}
+
+.header-search:focus {
+  width: 160px;
+  cursor: text;
+  border-color: var(--accent);
+  background-color: var(--bg); /* Solid opaque background color matching page bg */
+  z-index: 999;
+  box-shadow: none;
+  text-align: left;
+}
+
+/* Hide header text on search focus */
+th.hide-text {
+  color: transparent !important;
+}
+
+th.hide-text #symbol-count {
+  visibility: hidden !important;
+}
+
+th.hide-text::after {
+  opacity: 0 !important; /* Hide sort indicators too */
+}
+
+/* ============================================================
+   Apple HIG Component Library (Reusable macOS & iOS System Components)
+   ============================================================ */
+
+/* ── Apple SF Segmented Control Nav ────────────────────────── */
+.sf-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  background: rgba(118, 118, 128, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+  gap: 2px;
+}
+
+.sf-segment-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  letter-spacing: -0.01em;
+}
+
+.sf-segment-btn:hover {
+  color: var(--text-primary);
+}
+
+.sf-segment-btn.active {
+  background: var(--surface-warm);
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* ── Apple SF Pill Badge ───────────────────────────────────── */
+.sf-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.sf-badge-neutral { background: rgba(142, 142, 147, 0.12); color: var(--ind-gray); }
+.sf-badge-success { background: var(--ind-green-bg); color: var(--ind-green); border: 1px solid var(--ind-green-border); }
+.sf-badge-danger  { background: var(--ind-red-bg);   color: var(--ind-red);   border: 1px solid var(--ind-red-border); }
+.sf-badge-warning { background: var(--ind-orange-bg);color: var(--ind-orange);border: 1px solid var(--ind-orange-border); }
+.sf-badge-primary { background: var(--accent-light);  color: var(--accent); }
+
+/* ── Apple SF Action Button ────────────────────────────────── */
+.sf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.sf-btn-tinted {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: transparent;
+}
+.sf-btn-tinted:hover {
+  background: rgba(41, 151, 255, 0.22);
+}
+
+.sf-btn-plain {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.sf-btn-plain:hover {
+  color: var(--text-primary);
+  background: var(--bg-soft);
+}
+
+/* ── Apple SF Search Field ─────────────────────────────────── */
+.sf-search-input {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  padding: 6px 12px 6px 30px;
+  outline: none;
+  width: 200px;
+  transition: all 0.2s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='%2386868B' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.sf-search-input:focus {
+  border-color: var(--accent);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.18);
+  width: 240px;
+}
+
+/* ── Apple Glass Card (HIG Section 13) ─────────────────────── */
+.sf-card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 16px 20px;
+  transition: var(--transition);
+}
+
+/* ── Apple HIG List Row System (HIG Section 12) ────────────── */
+.sf-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--separator);
+  transition: background var(--transition);
+}
+
+.sf-list-row:last-child {
+  border-bottom: none;
+}
+
+.sf-list-row:hover {
+  background: var(--secondary-bg);
+}
+
+.sf-list-leading {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  color: var(--text-tertiary);
+}
+
+.sf-list-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sf-list-title {
+  font-size: var(--text-callout);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sf-list-subtitle {
+  font-size: var(--text-footnote);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.sf-list-trailing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: var(--text-callout);
+}
+
+/* ── Apple Hairline Separator Utility (HIG Section 5) ──────── */
+.sf-separator {
+  height: 1px;
+  background: var(--separator);
+  border: none;
+  margin: 0;
+  width: 100%;
+}
+
+.sf-separator-opaque {
+  height: 1px;
+  background: var(--opaque-separator);
+  border: none;
+  margin: 0;
+  width: 100%;
+}
+
+/* ── Apple Input Controls (HIG Section 11) ─────────────────── */
+.sf-input {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: var(--text-callout);
+  padding: 8px 12px;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.sf-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+/* ── Existing Select Override ──────────────────────────────── */
+.toolbar-select {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 2px 20px 2px 2px;
+  cursor: pointer;
+  transition: color var(--transition);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2386868B' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right center !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.toolbar-select:focus, .toolbar-select:hover {
+  color: var(--text-primary);
+}
+
+.toolbar-select option {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: none;
+}
+
+/* ── Screener table ────────────────────────────────────────── */
+.screener-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.81rem;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-name, .toolbar-title, .expand-card-title {
+  font-family: var(--font-heading);
+}
+
+.screener-table thead th {
+  padding: 12px 18px;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  background: var(--bg);
+  border-bottom: 1px solid var(--separator);
+  border-right: 1px solid transparent; /* Subtle column separation via spacing */
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition);
+  position: sticky;          /* sticky header with backdrop blur */
+  top: 0;
+  z-index: 10;
+  font-family: var(--font-heading);
+}
+
+.screener-table thead th:last-child {
+  border-right: none;
+}
+
+.screener-table thead th:hover { color: var(--text-primary); }
+.screener-table thead th.sort-asc::after  { content: ' ↑'; color: var(--accent); }
+.screener-table thead th.sort-desc::after { content: ' ↓'; color: var(--accent); }
+.screener-table thead th.active-sort { color: var(--accent); }
+
+.screener-table tbody tr {
+  border-bottom: 1px solid var(--separator);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.screener-table tbody tr:hover { background: var(--bg-soft); }
+.screener-table tbody tr.expanded { background: var(--secondary-bg); }
+
+/* Collapsible Sector Headers */
+.screener-table tbody tr.sector-header-row {
+  border-top: 1px solid var(--separator);
+  border-bottom: 1px solid var(--separator);
+  background: var(--bg-soft);
+  transition: background var(--transition);
+}
+.screener-table tbody tr.sector-header-row:hover {
+  background: var(--border-soft) !important;
+}
+
+.screener-table td {
+  padding: 12px 18px;
+  color: var(--text-secondary);
+  vertical-align: middle;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  border-right: 1px solid transparent; /* Clean spacing over heavy vertical grid lines */
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
+}
+
+.screener-table td:last-child {
+  border-right: none;
+}
+
+.screener-table td.sym-cell {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+  font-size: 0.88rem;
+}
+
+.stock-name {
+  font-size: 0.72rem;
+  color: var(--text-tertiary); /* Muted 30% tertiary text for subtle company names */
+  font-weight: 400;
+  margin-top: 2px;
+  letter-spacing: -0.01em;
+}
+
+.row-idx {
+  font-size: 0.67rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  min-width: 22px;
+  display: inline-block;
+}
+
+.td-mono { font-family: var(--font-mono); font-size: 0.78rem; }
+
+/* ── Bookmark button ───────────────────────────────────────── */
+.bm-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: var(--transition);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.bm-btn:hover {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  transform: scale(1.15);
+}
+
+.bm-btn.bookmarked {
+  color: #eab308; /* distinct golden yellow star */
+  text-shadow: 0 0 3px rgba(234,179,8,0.3);
+}
+
+/* ── Downtrend badge ───────────────────────────────────────── */
+.downtrend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--ind-red);
+  border: none;
+}
+
+/* ── Score badge ───────────────────────────────────────────── */
+.score-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  background: transparent !important;
+  border: none !important;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+.score-pill.s0 { color: var(--ind-gray); }
+.score-pill.s1 { color: var(--ind-blue); }
+.score-pill.s2 { color: var(--ind-green); }
+.score-pill.s3 { color: var(--ind-orange); }
+.score-pill.s4 { color: var(--ind-red); }
+
+/* ── Indicator chips ───────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  background: transparent !important;
+  border: none !important;
+}
+
+.chip-green  { color: var(--ind-green); }
+.chip-orange { color: var(--ind-orange); }
+.chip-red    { color: var(--ind-red); }
+.chip-blue   { color: var(--ind-blue); }
+.chip-gray   { color: var(--text-muted); }
+
+/* ── Trend badge ───────────────────────────────────────────── */
+.trend-badge { display: inline-flex; align-items: center; padding: 0; border-radius: 0; font-size: 0.72rem; font-weight: 500; background: transparent !important; }
+.trend-badge.bullish { color: var(--ind-green); }
+.trend-badge.bearish { color: var(--ind-red); }
+.trend-badge.neutral { color: var(--text-muted); }
+
+/* ── Expand row ────────────────────────────────────────────── */
+.expand-row td { padding: 0; background: transparent; }
+
+.expand-content {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.expand-flex-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.tech-cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  min-width: 100%;
+  margin-top: 8px;
+}
+
+.chart-card-wrapper {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.expand-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.expand-card-title {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.expand-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.expand-row-item:last-child { border-bottom: none; }
+.expand-row-label { font-size: 0.73rem; color: var(--text-secondary); }
+.expand-row-value { font-size: 0.73rem; font-weight: 600; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; }
+
+/* ── Empty / loading ───────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 32px;
+  text-align: center;
+  gap: 10px;
+}
+
+.empty-icon { font-size: 2.2rem; opacity: 0.3; }
+.empty-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+.empty-body { font-size: 0.78rem; color: var(--text-secondary); max-width: 360px; line-height: 1.8; }
+.empty-body code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.78em;
+  color: var(--accent-dark);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Pagination ────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--surface-warm);
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;            /* never hidden by flex */
+}
+
+.pagination-info { font-size: 0.73rem; color: var(--text-muted); }
+.pagination-controls { display: flex; gap: 3px; }
+
+.page-btn {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 5px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.74rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.page-btn:hover { background: var(--accent-light); color: var(--accent-dark); border-color: var(--accent); }
+.page-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+/* ── Toast ─────────────────────────────────────────────────── */
+.toast-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 6px; z-index: 999; }
+
+.toast {
+  padding: 9px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  color: white;
+  box-shadow: var(--shadow-md);
+  animation: slide-in 0.22s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 280px;
+}
+
+.toast.success { background: var(--ind-green); }
+.toast.error   { background: var(--ind-red); }
+.toast.info    { background: var(--accent); }
+
+@keyframes slide-in {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* ── Price Structure Table ── */
+.structure-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-top: 4px;
+  table-layout: fixed !important;
+}
+.structure-table th,
+.structure-table td {
+  padding: 6px 4px !important;
+  text-align: right !important;
+  border-bottom: 1px solid var(--border-soft) !important;
+  font-size: 0.73rem !important;
+  white-space: nowrap !important;
+  font-weight: normal;
+  background: transparent !important;
+  position: static !important;
+  vertical-align: middle !important;
+  font-family: var(--font-sans);
+}
+.structure-table th:first-child,
+.structure-table td:first-child {
+  text-align: left !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  width: 28% !important;
+}
+.structure-table th:not(:first-child),
+.structure-table td:not(:first-child) {
+  width: 18% !important;
+}
+.structure-table th {
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.04em !important;
+  padding-bottom: 6px !important;
+}
+.structure-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+.google-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: transparent !important;
+  color: var(--ind-red);
+  border: none !important;
+  padding: 0 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1;
+}
+.aadhik-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: transparent !important;
+  color: var(--ind-purple);
+  border: none !important;
+  padding: 0 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1;
+}
+
+.google-apex-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: transparent !important;
+  color: var(--ind-green);
+  border: none !important;
+  padding: 0 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1;
+}
+.aadhik-bull-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: transparent !important;
+  color: var(--ind-blue);
+  border: none !important;
+  padding: 0 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1;
+}
+
+.launch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.launch-btn:hover {
+  color: var(--accent);
+  background: var(--surface-warm);
+  transform: scale(1.1);
+}
+
+/* ── Market Regime Breadth Bar ──────────────────────────────── */
+.regime-breadth-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-warm);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.regime-metric { display: flex; align-items: center; gap: 4px; }
+.regime-metric.green { color: var(--ind-green); }
+.regime-metric.red { color: var(--ind-red); }
+.regime-metric.neutral { color: var(--text-secondary); }
+.regime-divider { color: var(--border); font-weight: 300; }
+.regime-val { font-family: monospace; font-weight: 700; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .main { padding: 16px 16px 12px; }
+  .header { padding: 0 16px; }
+}
+
+@media (max-width: 768px) {
+  .table-search { width: 100%; }
+  .tech-cards-wrapper {
+    width: 100%;
+    min-width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-cards-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .tab-nav { width: 100%; }
+  .tab-btn { flex: 1; justify-content: center; }
+}
+
+/* ── Sparkline Chart Toggles ────────────────────────── */
+.chart-tab-btn {
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.chart-tab-btn:hover {
+  background: var(--bg-soft);
+  color: var(--text-primary);
+}
+
+.chart-tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.chart-tab-link {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.chart-tab-link:hover {
+  color: var(--text-primary);
+}
+
+.chart-tab-link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.chart-tab-link.active-bb {
+  color: #4285f4 !important;
+  border-bottom-color: #4285f4 !important;
+}
+
+.chart-tab-link.active-vwap {
+  color: #ff9800 !important;
+  border-bottom-color: #ff9800 !important;
+}
+
+.chart-tab-link.active-ema {
+  color: #9c27b0 !important;
+  border-bottom-color: #9c27b0 !important;
+}
+
+/* ── Immersive Mode Layout & Accordions ───────────────────── */
+.immersive-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.immersive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  height: 56px;
+}
+
+.immersive-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+.immersive-left {
+  flex: 0 0 65%;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-right: 1px solid var(--border-soft);
+  overflow-y: auto;
+}
+
+.immersive-right {
+  flex: 0 0 35%;
+  width: 35%;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px 60px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  overflow-y: auto;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+html[data-theme="dark"] .immersive-right,
+:root:not([data-theme="light"]) .immersive-right {
+  background: rgba(22, 22, 23, 0.65);
+}
+
+.accordion-item {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+html[data-theme="dark"] .accordion-item,
+:root:not([data-theme="light"]) .accordion-item {
+  background: rgba(28, 28, 30, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  background: transparent;
+  user-select: none;
+}
+
+.accordion-header:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+html[data-theme="dark"] .accordion-header:hover,
+:root:not([data-theme="light"]) .accordion-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.accordion-icon {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+  color: var(--text-muted);
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  display: none;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-soft);
+  background: transparent;
+  font-size: 0.78rem;
+}
+
+.accordion-item.open .accordion-content {
+  display: block;
+}

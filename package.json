@@ -1,0 +1,27 @@
+{
+  "name": "nifty500-weak-trend-screener",
+  "version": "1.0.0",
+  "description": "Nifty 500 weak trend stock screener using Upstox API v2",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "setup": "node scripts/build_instruments.js",
+    "auth": "node scripts/auth.js",
+    "fetch": "node scripts/fetch_yahoo.js",
+    "fetch:resume": "node scripts/fetch_yahoo.js --resume",
+    "fetch:dry": "node scripts/fetch_yahoo.js --dry-run",
+    "fetch:upstox": "node scripts/fetch_data.js",
+    "fetch:upstox:dry": "node scripts/fetch_data.js --dry-run",
+    "fetch:upstox:resume": "node scripts/fetch_data.js --resume"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "open": "^10.1.0",
+    "yahoo-finance2": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
