@@ -188,8 +188,17 @@ function scheduleDailyRefreshIST() {
   }, checkIntervalMs);
 }
 
-app.listen(PORT, () => {
-  console.log(`🚀 Screener server running at http://localhost:${PORT}`);
-  scheduleDailyRefreshIST();
-  console.log(`⏰ Scheduled automatic daily refresh at 9:00 AM IST.`);
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) return;
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+export default app;
+
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Screener server running at http://localhost:${PORT}`);
+    scheduleDailyRefreshIST();
+    console.log(`⏰ Scheduled automatic daily refresh at 9:00 AM IST.`);
+  });
+}
