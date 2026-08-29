@@ -67,24 +67,40 @@ async function init() {
   });
 
   const searchBox = $("search-box");
-  const symbolHeader = document.querySelector('th[data-sort="symbol"]');
-  if (searchBox && symbolHeader) {
-    searchBox.addEventListener("focus", () => {
-      symbolHeader.classList.add("hide-text");
-    });
-    searchBox.addEventListener("blur", () => {
-      symbolHeader.classList.remove("hide-text");
-    });
-  }
+  const toggleSearchBtn = $("btn-toggle-search");
+  const symbolHeaderLabel = $("symbol-header-label");
 
-  $("search-box").addEventListener(
-    "input",
-    debounce(() => {
-      symbolHeader.classList.add("hide-text");
-      expandedSym = null;
-      render();
-    }, 200),
-  );
+  if (toggleSearchBtn && searchBox && symbolHeaderLabel) {
+    toggleSearchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isSearchOpen = searchBox.style.display !== "none";
+      if (isSearchOpen) {
+        if (!searchBox.value.trim()) {
+          searchBox.style.display = "none";
+          symbolHeaderLabel.style.display = "inline-flex";
+        }
+      } else {
+        symbolHeaderLabel.style.display = "none";
+        searchBox.style.display = "inline-block";
+        searchBox.focus();
+      }
+    });
+
+    searchBox.addEventListener("blur", () => {
+      if (!searchBox.value.trim()) {
+        searchBox.style.display = "none";
+        symbolHeaderLabel.style.display = "inline-flex";
+      }
+    });
+
+    searchBox.addEventListener(
+      "input",
+      debounce(() => {
+        expandedSym = null;
+        render();
+      }, 200),
+    );
+  }
 
   $("sector-filter").addEventListener("change", (e) => {
     selectedSector = e.target.value;

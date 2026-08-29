@@ -74,6 +74,11 @@
   --ind-gray-bg:      rgba(152, 152, 157, 0.15);
   --ind-gray-border:  rgba(152, 152, 157, 0.30);
 
+  /* ── Apple Liquid Glass Translucent Material Tokens ── */
+  --glass-header-bg:  rgba(28, 28, 30, 0.82);
+  --glass-th-bg:      rgba(13, 13, 14, 0.88);
+  --glass-card-bg:    rgba(28, 28, 30, 0.65);
+
   /* ── Apple Restrained Corner Radius System (Section 7) ── */
   --radius-sm:  6px;
   --radius-md:  10px;
@@ -98,6 +103,10 @@ html[data-theme="light"] {
   --elevated-surface:     #FFFFFF;
   --surface-warm:         #F2F2F7;
   --overlay:              rgba(0, 0, 0, 0.40);
+
+  --glass-header-bg:  rgba(255, 255, 255, 0.82);
+  --glass-th-bg:      rgba(242, 242, 247, 0.88);
+  --glass-card-bg:    rgba(255, 255, 255, 0.68);
 
   --accent:       #007AFF;              /* Apple System Blue Light */
   --accent-light: rgba(0, 122, 255, 0.10);
@@ -162,6 +171,11 @@ html {
 body {
   font-family: var(--font-sans);
   background: var(--bg);
+  background-image:
+    radial-gradient(circle 650px at 50% 15%, rgba(10, 132, 255, 0.22), transparent 70%),
+    radial-gradient(circle 550px at 20% 80%, rgba(191, 90, 242, 0.16), transparent 70%),
+    radial-gradient(circle 500px at 80% 60%, rgba(52, 199, 89, 0.12), transparent 70%);
+  background-attachment: fixed;
   color: var(--text-primary);
   height: 100vh;
   overflow: hidden;          /* body NEVER scrolls */
@@ -171,6 +185,13 @@ body {
   letter-spacing: -0.022em;  /* Apple SF Pro default optical tracking */
   font-size: 15px;
   overscroll-behavior: none;
+}
+
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle 650px at 50% 15%, rgba(0, 122, 255, 0.20), transparent 70%),
+    radial-gradient(circle 550px at 20% 80%, rgba(175, 82, 222, 0.14), transparent 70%),
+    radial-gradient(circle 500px at 80% 60%, rgba(52, 199, 89, 0.10), transparent 70%);
 }
 
 button, input, select, textarea {
@@ -187,7 +208,9 @@ html { height: 100%; overflow: hidden; }
 /* ── Header ────────────────────────────────────────────────── */
 /* ── Header ────────────────────────────────────────────────── */
 .header {
-  background: var(--surface);
+  background: var(--glass-header-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
   border-bottom: 1px solid var(--separator);
   padding: 0 24px;
   flex-shrink: 0;            /* never shrink */
@@ -497,17 +520,26 @@ svg, .tab-icon, [data-lucide] {
   color: var(--text-muted);
 }
 
-/* ── Table card ────────────────────────────────────────────── */
+/* ── Translucent Glass Table Card ─────────────────────────── */
 .table-card {
-  background: transparent;
-  border: none;
-  border-radius: 0;
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: none;
   display: flex;
   flex-direction: column;
   flex: 1;                   /* takes remaining height */
   min-height: 0;
+  margin-top: 0;
+}
+
+html[data-theme="light"] .table-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
 
 /* Scrollable table wrapper — ONLY this scrolls */
@@ -524,8 +556,8 @@ svg, .tab-icon, [data-lucide] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border-soft);
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--separator);
   gap: 12px;
   flex-wrap: wrap;
   background: transparent;
@@ -589,46 +621,32 @@ svg, .tab-icon, [data-lucide] {
   width: 220px;
 }
 
-/* ── Table Header Search Box ────────────────────────── */
-.header-search-container {
-  position: relative;
-  width: 26px;
-  height: 24px;
-  margin: 0 auto;
-  z-index: 99; /* Force higher stacking context over sticky headers */
-}
-
-.header-search {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-soft);
-  border-radius: 0;
+/* ── Apple Interactive Header Search Field ──────────────── */
+.th-search-field {
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.75rem;
-  padding: 4px 6px 4px 22px;
-  width: 26px;
-  height: 24px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 4px 10px;
   outline: none;
-  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s;
+  width: 100%;
+  max-width: 220px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='%23b0a09a' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 7px center;
-  cursor: pointer;
+  text-transform: none;
 }
 
-.header-search:focus {
-  width: 160px;
-  cursor: text;
+.th-search-field::placeholder {
+  color: var(--text-tertiary);
+  font-size: 0.72rem;
+}
+
+.th-search-field:focus {
+  background: var(--secondary-bg);
   border-color: var(--accent);
-  background-color: var(--bg); /* Solid opaque background color matching page bg */
-  z-index: 999;
-  box-shadow: none;
-  text-align: left;
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2);
 }
 
 /* Hide header text on search focus */
@@ -900,8 +918,9 @@ th.hide-text::after {
 /* ── Screener table ────────────────────────────────────────── */
 .screener-table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.81rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: none;
 }
 
 h1, h2, h3, h4, h5, h6, .brand-name, .toolbar-title, .expand-card-title {
@@ -916,7 +935,9 @@ h1, h2, h3, h4, h5, h6, .brand-name, .toolbar-title, .expand-card-title {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-tertiary);
-  background: var(--bg);
+  background: var(--glass-header-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
   border-bottom: 1px solid var(--separator);
   border-right: 1px solid transparent; /* Subtle column separation via spacing */
   white-space: nowrap;
@@ -934,18 +955,33 @@ h1, h2, h3, h4, h5, h6, .brand-name, .toolbar-title, .expand-card-title {
 }
 
 .screener-table thead th:hover { color: var(--text-primary); }
-.screener-table thead th.sort-asc::after  { content: ' ↑'; color: var(--accent); }
-.screener-table thead th.sort-desc::after { content: ' ↓'; color: var(--accent); }
+.screener-table thead th.sort-asc::after  { content: ' ↑'; color: var(--accent); display: inline; }
+.screener-table thead th.sort-desc::after { content: ' ↓'; color: var(--accent); display: inline; }
 .screener-table thead th.active-sort { color: var(--accent); }
+
+.th-symbol-cell {
+  white-space: nowrap !important;
+}
 
 .screener-table tbody tr {
   border-bottom: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.02);
   cursor: pointer;
   transition: background var(--transition);
 }
 
-.screener-table tbody tr:hover { background: var(--bg-soft); }
-.screener-table tbody tr.expanded { background: var(--secondary-bg); }
+html[data-theme="light"] .screener-table tbody tr {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.screener-table tbody tr:hover {
+  background: rgba(10, 132, 255, 0.08) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.screener-table tbody tr.expanded {
+  background: rgba(10, 132, 255, 0.12) !important;
+}
 
 /* Collapsible Sector Headers */
 .screener-table tbody tr.sector-header-row {

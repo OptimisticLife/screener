@@ -102,14 +102,15 @@
           <table class="screener-table">
             <thead>
               <tr id="table-header-row">
-                <th style="width: 52px; min-width: 52px; text-align: center; padding: 4px; position: sticky; top: 0; z-index: 3; overflow: visible;">
-                  <div class="header-search-container">
-                    <input type="text" class="header-search" id="search-box" placeholder="" title="Search symbol or name…" />
-                  </div>
+                <th style="width: 44px; min-width: 44px; text-align: center; position: sticky; top: 0; z-index: 3; cursor: pointer;" id="btn-toggle-search" title="Toggle Search">
+                  <i data-lucide="search" style="width:14px; height:14px; stroke-width:2.2; color:var(--text-secondary); transition:color 0.15s ease;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'"></i>
                 </th>
-                <th class="sortable" data-sort="symbol" style="position: sticky; top: 0; z-index: 2;">
-                  Symbol
-                  <div id="symbol-count" style="font-size:0.65rem;color:var(--text-muted);font-weight:400;margin-top:2px;">—</div>
+                <th class="sortable th-symbol-cell" data-sort="symbol" id="th-symbol-cell" style="position: sticky; top: 0; z-index: 2; white-space: nowrap;">
+                  <span id="symbol-header-label" style="display:inline-flex; align-items:center; gap:6px; white-space:nowrap;">
+                    <span>SYMBOL</span>
+                    <span id="symbol-count" style="font-size:0.65rem; color:var(--text-muted); font-weight:400;">(500)</span>
+                  </span>
+                  <input type="text" class="th-search-field" id="search-box" placeholder="Search symbol or name…" style="display:none;" onclick="event.stopPropagation()" />
                 </th>
                 <th class="sortable" data-sort="price" style="position: sticky; top: 0; z-index: 2;">Price</th>
                 <th class="sortable" data-sort="chg1M" style="position: sticky; top: 0; z-index: 2;">Chg % (1M)</th>
